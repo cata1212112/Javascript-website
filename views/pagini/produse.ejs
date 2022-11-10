@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html lang="ro">
+<head>
+    <title> BarcaOnline </title>
+    <meta name="keywords" content="magazin, barca, barci, navigare, barca cu motor, barca gonflabila, yachturi, barci de viteza, ambarcatiuni nautice, skijeturi, barci cu motor, barci gonflabile">
+    <meta name="description" content="Magazinul online numarul 1 pentru achizionare de barci. Aici oferim barci de viteza, barci cu motor, barci gonflabile, yachturi si skijeturi. Spor la navigare!" >
+    <%- include("../fragmente/head.ejs");%>
+
+    <link rel="stylesheet" href="/resurse/css/produse.css" type="text/css">
+
+    <script type="text/javascript" src="/resurse/js/produse.js"></script>
+</head>
+
+<body>
+
+<%- include("../fragmente/header.ejs");%>
+
+<main>
+    <label> Nume: <input type="text" id="inp_nume"></label>
+
+    <div> Dimensiune:
+        <% for (let opt of locals.tipuri) { %>
+            <p><label><%- opt.unnest %>
+                    <input id="i_rad1"  name="gr_rad" value="<%- opt.unnest %>" type="radio"/>
+                </label></p>
+        <% } %>
+        <p><label>Toate
+                <input id="i_rad1"  name="gr_rad" value="toate" type="radio" checked/>
+            </label></p>
+    </div>
+
+
+
+    <label> Pret minim: <input type="range" id="inp-pret_mini" value="<%-locals.minipret%>" min="<%-locals.minipret%>"  max="<%-locals.maxipret%>"> <span id="infoRange_mini">(<%-locals.minipret%>)</span></label>
+    <label> Pret maxim: <input type="range" id="inp-pret_maxi" value="<%-locals.maxipret%>" min="<%-locals.minipret%>"  max="<%-locals.maxipret%>"> <span id="infoRange_maxi">(<%-locals.maxipret%>)</span></label>
+    <br>
+    <label>Select simplu:
+        <select id="inp-categorie">
+            <option id="sel-toate" selected value="toate">toate</option>
+            <% for (let opt of locals.optiuni) { %>
+                <option value="<%- opt.unnest %>"><%- opt.unnest %> </option>
+            <% } %>
+        </select>
+    </label>
+    <br>
+    <label for="datalist"> Alege culoarea: </label>
+    <input list="culori_filtrare" name="datalist" id="datalist">
+    <datalist id="culori_filtrare">
+        <option value="toate">
+    <% for (let opt of locals.culori) { %>
+        <option value="<%-opt%>">
+    <% } %>
+    </datalist>
+
+    <br>
+    <label for="luni">Alege luna adaugarii: </label>
+    <select name="luni" id="luni_select" multiple>
+        <% for (let opt of locals.Luni) { %>
+        <option value="<%-opt%>" selected><%-opt%></option>
+            <% } %>
+    </select>
+
+    <label>Textarea: <textarea id="textarea">Test</textarea> </label>
+
+    <p>
+        <button id="filtrare">Filtreaza</button> <button id="resetare">Reseteaza</button><br/>
+        <button id="sortCrescNume">Sorteaza crescator dupa pret si numarul de culori</button>
+        <button id="sortDescrescNume">Sorteaza descrescator dupa pret si numarul de culori</button>
+    </p>
+
+    <div id="div_suma">
+        <button id="calculare"> Calculare suma preturi </button>
+    </div>
+
+    <div>
+        <input type="checkbox" id="discount" name="discount">
+        <label for="discount">Afiseaza doar cu discount produsele care au dimensiune medie</label>
+    </div>
+
+    <p id="p-suma">Apăsați Alt+"c" pentru suma preturilor produselor afișate. </p>
+
+
+    <section id="produse">
+        <h2>Produse</h2>
+        <div class="grid_produse">
+            <% for (let prod of locals.produse) {%>
+                <article class="produs" id="produs_<%-prod.id%>">
+                    <h3 class="nume"> Nume: <a href="/produs/<%-prod.id%>"> <span class = "val-nume"><%-prod.nume%></span></a></h3>
+
+                    <div class="prod_info">
+
+                        <figure>
+                            <a href="/produs/<%-prod.id%>"> <img src="<%-prod.imagine%>"></a>
+                            <figcaption>
+                                <p class="pret"> Pret: <span class="val_pret"><%-prod.pret%></span> $</p>
+                                <p class="categorie">Categorie: <span class="val_categorie"><%-prod.categorie%></span></p>
+                            </figcaption>
+                        </figure>
+
+                        <div>
+                            <details>
+                                <summary>Specificatii</summary>
+                                <ul>
+                                    <li><p class="marime"> <b>Marime</b>: <span class="marime_val"><%-prod.tip_produs%></span> </p></li>
+                                    <li><p class="culori"> <b>Culori</b>: <span class="culori_val"> <%-prod.culori%></span> </p></li>
+                                    <li><p class="viteza"> <b>Viteza</b>: <span class="viteza_val"><%-prod.viteza_maxima%> MPH</span></p></li>
+                                    <li><p class="vasle"> <b>Suporta vasle</b>: <span class="vasle_val"> <%-prod.viteza_maxima%> </span></p></li>
+                                    <li><time class="time" datetime="<%-prod.data_adaugare%>"> <b>Data adaugare</b>: <span class="time_val"> <%-prod.data_adaugare%> </span></time></li>
+                                </ul>
+                            </details>
+                            <p class="descriere"><span class="descriere_val"> <%-prod.descriere%> </span></p>
+                        </div>
+                    </div>
+                    <label class="selecteaza_cos">
+                        Selecteaza: <br/>
+                        <select name="cate<%-prod.id%>" id="cate<%-prod.id%>">
+                            <% for (var i=1; i<100; i++) {%>
+                                <option value="<%-i%>"><%-i%></option>
+                            <%}%>
+                        </select>
+                        <input type="checkbox" class="select_cos" value="<%-prod.id%>" autocomplete="off">
+                    </label>
+                </article>
+            <%}%>
+        </div>
+    </section>
+</main>
+
+<%- include("../fragmente/footer.ejs");%>
+</body>
+</html>

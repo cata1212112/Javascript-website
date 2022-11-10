@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <title>Profil</title>
+    <link rel="stylesheet" href="/resurse/css/prod_adm.css"/>
+    <%- include("../fragmente/head") %>
+
+    <!--		<link rel="stylesheet" type="text/css" href="/resurse/css/contact.css" />-->
+    <script>
+        window.addEventListener("DOMContentLoaded", function(){
+            let produse = <%-JSON.stringify(locals.produse)%>;
+
+
+            for (let prod of produse) {
+                    document.getElementById(`imagine${prod.id}`).src = prod.imagine;
+                    document.getElementById(`poza${prod.id}`).required = false;
+                    document.getElementById(`prod_id${prod.id}`).value = `${prod.id}`;
+                    document.getElementById(`prod_name${prod.id}`).value = prod.nume;
+                    document.getElementById(`culori${prod.id}`).value = prod.culori.join(",");
+                    document.getElementById(`viteza${prod.id}`).value = prod.viteza_maxima;
+                    document.getElementById(`descriere${prod.id}`).value = prod.descriere;
+                    document.getElementById(`producator${prod.id}`).value = prod.producator;
+                    document.getElementById(`pret${prod.id}`).value = prod.pret;
+
+                    var optiuni = document.getElementById(`marime_Sel${prod.id}`);
+                    for (let opt of optiuni) {
+                        if (opt.value === prod.tip_produs) {
+                            opt.selected = true;
+                        }
+                    }
+
+                    var optiuni_vasle = document.getElementById(`vasle${prod.id}`);
+                    for (let optiuni_vasle of optiuni) {
+                        if (optiuni_vasle.value === prod.suport_vasle) {
+                            optiuni_vasle.selected = true;
+                        }
+                    }
+
+                var opt_categ = document.getElementById(`categorie${prod.id}`);
+                for (let opt of opt_categ) {
+                    if (opt.value === prod.categorie) {
+                        opt.selected = true;
+                    }
+                }
+            }
+
+        });
+    </script>
+</head>
+<body class="container">
+<header>
+    <%- include("../fragmente/header") %>
+</header>
+<main>
+
+    <section>
+        <h2>Profil</h2>
+        <p><%= locals.text %></p>
+    </section>
+
+    <%-include("../fragmente/form_prod")%>
+
+    <% for (let prod of locals.produse) {%>
+        <%-include("../fragmente/form_prod", {id:prod.id})%>
+    <%}%>
+
+</main>
+
+<%- include("../fragmente/footer") %>
+
+</body>
+</html>

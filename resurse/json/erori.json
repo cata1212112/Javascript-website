@@ -1,0 +1,26 @@
+{
+  "cale_baza": "resurse/imagini/imagini_erori",
+  "erori": [
+    {
+      "identificator":404,
+      "status":true,
+      "titlu":"404 - NOT FOUND",
+      "text": "Pagină inexistentă",
+      "imagine":"404.jpg"
+    },
+    {
+      "identificator":403,
+      "status":true,
+      "titlu":"403 - FORBIDDEN",
+      "text": "Pagină interzisă",
+      "imagine":"403.jpg"
+    },
+    {
+      "identificator":1,
+      "status":false,
+      "titlu":"Mentenanta",
+      "text": "Se lucreaza",
+      "imagine":"lucru.jpg"
+    }
+  ]
+}

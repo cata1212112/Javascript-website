@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="ro">
+<head>
+    <title> BarcaOnline </title>
+    <style>
+        .tabl{
+            border-collapse:collapse;
+        }
+        .tabl tr td:first-child::before{
+            display: table-cell;
+        }
+        .tabl td, #tabl th{
+            border:1px solid black;
+        }
+    </style>
+    <meta name="keywords" content="magazin, barca, barci, navigare, barca cu motor, barca gonflabila, yachturi, barci de viteza, ambarcatiuni nautice, skijeturi, barci cu motor, barci gonflabile">
+    <meta name="description" content="Magazinul online numarul 1 pentru achizionare de barci. Aici oferim barci de viteza, barci cu motor, barci gonflabile, yachturi si skijeturi. Spor la navigare!" >
+    <%- include("../fragmente/head.ejs");%>
+
+    <link rel="stylesheet" href="/resurse/css/produse.css" type="text/css">
+
+    <script type="text/javascript" src="/resurse/js/facturi.js"></script>
+
+</head>
+
+<body>
+
+<%- include("../fragmente/header.ejs");%>
+
+<main>
+    <section id="produse">
+        <h2>Facturi</h2>
+        <div class="grid_produse">
+            <% for (let fact of locals.facturi) {%>
+                <details class="factura">
+                    <summary><p class="nume" style="display: inline"> <%-fact.nume%></p>  <p class="prenume" style="display: inline"><%-fact.prenume%></p> <p class="data" style="display: inline"><%-fact.data%> </p></summary>
+                    <p><%-fact.username%></p>
+
+                    <table class="tabl">
+                        <thead>
+                        <tr>
+                            <th>Produs</th>
+                            <th>Imagine</th>
+                            <th>Cantitate</th>
+                            <th>Pret total</th>
+                            <th>Tip produs</th>
+                            <th>Categorie</th>
+                            <th>Producator</th>
+                        </tr>
+                        </thead>
+                    <% for (let i=0; i<fact.produse.length; i++) {%>
+                            <tr>
+                                <td><%-  fact.produse[i].nume %></td>
+                                <td><img src="<%- locals.protocol%><%- locals.domeniu %><%-  fact.produse[i].imagine %>" style="width: 50px;height: 50px"></td>
+                                <td><%-  fact.cantitati[i] %></td>
+                                <td><%-  fact.produse[i].pret * fact.cantitati[i] %></td>
+                                <td><%-  fact.produse[i].tip_produs%></td>
+                                <td><%-  fact.produse[i].categorie %></td>
+                                <td><%-  fact.produse[i].producator %></td>
+                            </tr>
+                    <%}%>
+                    </table>
+                </details>
+            <%}%>
+        </div>
+    </section>
+</main>
+
+<%- include("../fragmente/footer.ejs");%>
+</body>
+</html>

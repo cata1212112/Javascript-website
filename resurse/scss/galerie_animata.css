@@ -1,0 +1,22 @@
+/* Error: Can't find stylesheet to import.
+ *    ,
+ * 7  | / @use '../resurse/scss/galerie_animata_frag' with (
+ * 8  | |   $transformare_i: list.nth(list.nth($lista_transformari,$indice),1),
+ * 9  | |   $transformare_f: list.nth(list.nth($lista_transformari,$indice),2),
+ * 10 | |   //$setare-server: <%- locals.culoare %>,
+ * 11 | |   //$nrimag: <%- locals.nr_img %>
+ * 12 | | );
+ *    | '-^
+ *    '
+ *   galerie_animata.scss 7:1  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Can't find stylesheet to import.\a    \2577 \a 7  \2502  \250c  @use '../resurse/scss/galerie_animata_frag' with (\a 8  \2502  \2502    $transformare_i: list.nth(list.nth($lista_transformari,$indice),1),\a 9  \2502  \2502    $transformare_f: list.nth(list.nth($lista_transformari,$indice),2),\a 10 \2502  \2502    //$setare-server: <%- locals.culoare %>,\a 11 \2502  \2502    //$nrimag: <%- locals.nr_img %>\a 12 \2502  \2502  );\a    \2502  \2514 \2500 ^\a    \2575 \a   galerie_animata.scss 7:1  root stylesheet";
+}

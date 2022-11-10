@@ -1,0 +1,29 @@
+#aici_banner {
+    position: fixed;
+    bottom: 0;
+    background: #ffd6d6;
+    width: 100%;
+    border: 5px #89ec9f solid;
+    left: 0;
+    text-align: center;
+    animation: animatie_cookie 3s linear;
+    color: #000000;
+}
+
+@keyframes animatie_cookie {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+        color: #0a547c;
+    }
+}

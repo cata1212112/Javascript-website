@@ -1,0 +1,110 @@
+<script>
+    <% if (!locals.tema) {%>
+        var tema = localStorage.getItem("tema");
+        document.body.classList.add(tema);
+    <%}%>
+    <% if (locals.tema) {%>
+        localStorage.setItem("tema", "<%-locals.tema%>");
+        document.body.classList.add("<%-locals.tema%>");
+    <%}%>
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="/resurse/js/tema.js"></script>
+
+<script src="/resurse/js/afisare_cookie.js"></script>
+<header>
+    <div class="watermark">
+        <p>Stan Catalin Andrei</p>
+    </div>
+    <div class="titlu_container">
+    <div class="banner_container">
+        <h1 class="banner"> Acesta este un proiect scolar!</h1>
+    </div>
+
+            <h1 class="titlu_site"> Magazin de barci </h1>
+        </div>
+    <img src="/resurse/imagini/emblema/emblema.jpg" alt="emblema" id="emblema">
+
+
+    <hr id="hr">
+<nav>
+    <input type="checkbox" id="trb_apare_sus">
+    <label for="trb_apare_sus" > <i class="fa-solid fa-bars fa-4x" id="trb_apare"></i> </label>
+    <ul class="meniu_principal">
+        <li>
+            <a href="/index" class="first" id="de_sters">  <i class="fa-solid fa-house-chimney-user"></i> Acasa </a>
+            <a href="/index" class="first" id="inlocuitor">  <i class="fa-solid fa-house-chimney-user fa-xl"></i></a>
+        </li>
+        <li> <a href="/despre" class="first"> <i class="fa-solid fa-question"></i> Despre</a> </li>
+        <li> <a href="/produse" class="first"> <i class="fa-solid fa-cart-shopping"></i>Produse</a>
+            <% if (locals.propGenereala) {%>
+            <ul class="submeniu">
+                <% if (locals.utilizator && locals.utilizator.rol == "admin") {%>
+                    <li> <a class="second" href="/admin_prod"> AdminProd</a> </li>
+                <% }%>
+                <% for (let categ of locals.propGenereala) {%>
+                <li> <a href="/produse?tip=<%-categ.unnest%>" class="second"> <%-categ.unnest%> </a> </li>
+                <%}%>
+            </ul>
+            <% }%>
+        </li>
+        <li> <a href="/cos-virtual" class="first"><i class="fa-solid fa-basket-shopping"></i> Cos</a> </li>
+        <% if (!locals.utilizator) {%>
+            <li> <a href="logare.html" class="first"> <i class="fa-solid fa-key"></i> Logare</a> </li>
+            <li> <a href="/inregistrare" class="first"><i class="fa-solid fa-user-plus"></i> Inregistrare</a> </li>
+        <% }%>
+        <% if (locals.utilizator) {%>
+                <li> <a class="first"> <i class="fa-solid fa-user"></i> <%-locals.utilizator.username%></a>
+                <ul class="submeniu">
+                    <li> <a href="/profil" class="second"> Profil </a> </li>
+                    <li> <a href="/logout" class="second"> Logout </a> </li>
+                </ul>
+                </li>
+        <% }%>
+
+
+
+        <% if (locals.utilizator && locals.utilizator.rol == "admin") {%>
+        <li> <a class="first" href="/useri"> Useri</a> </li>
+        <li> <a class="first" href="/facturi"> Facturi</a> </li>
+        <% }%>
+        <li>
+            <a class="first">Meniu</a>
+            <ul class="submeniu">
+                <li> <a href="/index#prezentare" class="second"> Welcome </a> </li>
+                <li> <a href="/index#pareri" class="second"><i class="fa-solid fa-comment"></i> Pareri</a> </li>
+                <li> <a href="/index#orar" class="second"> Orar </a> </li>
+                <li> <a href="/contact" class="second"> Contact</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+    <% if (!locals.utilizator) {%>
+        <form id="form_login"  method="post" class="date"  action="/login"  enctype="multipart/form-data">
+            <p>
+                <label>
+                    Username: <input type="text" name="username" id="inp-username" value="" required pattern="^[A-Za-z_]+[0-9]*$">
+                </label>
+            </p>
+            <p>
+                <label>
+                    Parola: <input id="parl" type="password" required  name="parola" value="">
+                </label>
+            </p>
+
+            <p><input type="submit" value="Logare"></p>
+        </form>
+    <%}%>
+    <%-locals.mesajLogin%>
+
+    <% if (locals.utilizator) {%>
+    <p style="padding-left: 20px">
+        <br>
+        <%-locals.utilizator.nume%>
+        <a href="/logout" class="second"><i class="fa-solid fa-door-open" title="logout" style="font-size: 30px;padding-left: 10px"></i></a>
+        <br>
+        <%-locals.utilizator.prenume%>
+    </p>
+    <%}%>
+</header>
+

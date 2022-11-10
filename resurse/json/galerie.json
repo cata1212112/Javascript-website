@@ -1,0 +1,119 @@
+{
+  "cale_galerie": "resurse/imagini/galerie",
+  "imagini": [
+    {
+      "fisier": "barca_motor.png",
+      "titlu": "Barca cu motor",
+      "descriere": "Barca cu motor",
+      "timp": "00:00-11:00"
+    },
+    {
+      "fisier": "barca_gonflabila_1.png",
+      "titlu": "Barca gonflabila albastra",
+      "descriere": "Barca gonflabila albastra",
+      "timp": "11:00-16:00"
+    },
+    {
+      "fisier": "yacht_mare.png",
+      "titlu": "Yacht mare",
+      "descriere": "Yacht mare",
+      "timp": "22:00-21:00"
+    },
+    {
+      "fisier": "yacht_mic.png",
+      "titlu": "Yacht mic",
+      "descriere": "Yacht mic",
+      "timp": "09:00-02:00"
+    },
+    {
+      "fisier": "barca_pescuit.png",
+      "titlu": "Barca pentru pescuit",
+      "descriere": "Barca pentru pescuit",
+      "timp": "20:00-07:00"
+    },
+    {
+      "fisier": "jet_ski.png",
+      "descriere": "Jet ski",
+      "titlu": "Jet ski",
+      "timp": "07:00-12:00"
+    },
+    {
+      "fisier": "barca_gonflabila_2.png",
+      "descriere": "Barca gonflabila verde",
+      "titlu": "Barca gonflabila verde",
+      "timp": "18:00-17:00"
+    },
+    {
+      "fisier": "barca_vela.png",
+      "descriere": "Barca cu vela",
+      "titlu": "Barca cu vela",
+      "timp": "05:00-22:00"
+    },
+    {
+      "fisier": "caiac.png",
+      "titlu": "Caiac",
+      "descriere": "Caiac",
+      "timp": "16:00-03:00"
+    },
+    {
+      "fisier": "barca_pirat_1.png",
+      "titlu": "Barca pirat",
+      "descriere": "Barca pirat",
+      "timp": "03:00-08:00"
+    },
+    {
+      "fisier": "barca_pirat_2.png",
+      "titlu": "Barca pirat",
+      "descriere": "Barca pirat",
+      "timp": "14:00-13:00"
+    },
+    {
+      "fisier": "barca_pirat_3.png",
+      "titlu": "Barca pirat",
+      "descriere": "Barca pirat",
+      "timp": "01:00-18:00"
+    },
+    {
+      "fisier": "barca_vasleste.png",
+      "titlu": "Barca vasleste",
+      "descriere": "Barca vasleste",
+      "timp": "12:00-23:00"
+    },
+    {
+      "fisier": "barca_vela_mare.png",
+      "descriere": "Barca cu vela mare",
+      "titlu": "Barca cu vela mare",
+      "timp": "23:00-04:00"
+    },
+    {
+      "fisier": "barci_dubioase.png",
+      "descriere": "Barci dubioase",
+      "titlu": "Barci dubioase",
+      "timp": "10:00-09:00"
+    },
+    {
+      "fisier": "barci_vele.png",
+      "descriere": "Barci vele",
+      "titlu": "Barci vele",
+      "timp": "21:00-14:00"
+    },
+    {
+      "fisier": "caiac_vaslese.png",
+      "descriere": "Caiac vaslese",
+      "titlu": "Caiac vaslese",
+      "timp": "08:00-19:00"
+    },
+    {
+      "fisier": "industriala.png",
+      "descriere": "Industriala",
+      "titlu": "Industriala ",
+      "timp": "19:00-00:00"
+    },
+    {
+      "fisier": "motoreta.png",
+      "descriere": "Motoreta",
+      "titlu": "Motoreta ",
+      "timp": "06:00-05:00"
+    }
+  ]
+}

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html lang="ro">
+<head>
+    <title> BarcaOnline </title>
+    <meta name="keywords" content="magazin, barca, barci, navigare, barca cu motor, barca gonflabila, yachturi, barci de viteza, ambarcatiuni nautice, skijeturi, barci cu motor, barci gonflabile">
+    <meta name="description" content="Magazinul online numarul 1 pentru achizionare de barci. Aici oferim barci de viteza, barci cu motor, barci gonflabile, yachturi si skijeturi. Spor la navigare!" >
+    <%- include("../fragmente/head.ejs");%>
+
+    <link rel="stylesheet" href="/temp/galerie_animata.css" type="text/css">
+    <link rel="stylesheet" href="/resurse/css/calendar.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="/resurse/js/tema.js"></script>
+
+</head>
+
+<body>
+
+<% if (locals.utilizator) {%>
+<p style="padding-left: 20px">
+    <picture>
+        <img src="<%-locals.utilizator.poza%>" alt="profil" style="width: 100px;height: 100px">
+    </picture>
+    <p>Bine ai venit, <%-locals.utilizator.username%></p>
+</p>
+<%}%>
+
+<%- include("../fragmente/header.ejs");%>
+
+<p><button class="btn_tema" value="light"> Light </button></p>
+<p><button class="btn_tema" value="dark"> Dark </button></p>
+<p><button class="btn_tema" value="party"> Altceva </button></p>
+
+<% for (let usr of locals.useri_activi) {%>
+    <li style="color: green"> <%-usr.username%>(<%-usr.nume%> <%-usr.prenume%>) </li>
+<%}%>
+
+<% for (let usr of locals.useri_incat) {%>
+<li style="color: orange"> <%-usr.username%>(<%-usr.nume%> <%-usr.prenume%>) </li>
+<%}%>
+
+<main>
+
+    <section id="fig1" class="fg-img">
+        <p>Locatie : <%= locals.locatie %></p>
+    </section>
+
+
+    <section id="fig2" class="fg-img">
+        <h2>Calendar</h2>
+        <div id="calendar">
+            <div>L</div>
+            <div>Ma</div>
+            <div>Mi</div>
+            <div>J</div>
+            <div>V</div>
+            <div>S</div>
+            <div>D</div>
+            <%
+            nrZile=[31,28,31,30,31,30,31,31,30,31,30,31];
+
+            d=new Date();
+            anCurent=d.getFullYear();
+            lunaCurenta=d.getMonth();
+            if(anCurent%400==0 || (anCurent%4==0 && anCurent%100!=0)) nrZile=29;
+            let nrZileCalendar=nrZile[lunaCurenta]
+            primaZiLuna=new Date(anCurent, lunaCurenta, 1);
+            ultimaZiLuna=new Date(anCurent, lunaCurenta, nrZileCalendar);
+            ziSaptPrimaZiLuna=(primaZiLuna.getDay()-1+7)%7;
+            ziSaptUltimaZiLuna=(ultimaZiLuna.getDay()-1+7)%7;
+            for (let i=0;i<ziSaptPrimaZiLuna;i++){
+            %>
+                <div></div>
+            <% }
+
+
+            for (let i=1;i<=nrZileCalendar;i++){
+                var obiectEvenimente=null;
+                if(locals.evenimente)
+                    obiectEvenimente=locals.evenimente.find(function(elem){ return elem.data.valueOf()==new Date(anCurent,lunaCurenta,i).valueOf()})
+            if(obiectEvenimente)
+            {
+            %>
+                <div class="zi eveniment" title="<%= obiectEvenimente.text %>"><%= i %></div>
+            <%
+            }
+            else{
+            %>
+                <div class="zi"><%= i %></div>
+            <% }
+            } %>
+        </div>
+        <%
+        dataServer=new Date();
+        sirData=dataServer.getHours()+":"+dataServer.getMinutes()+":"+dataServer.getSeconds()
+
+        %>
+        <p>Ora server:<span id="data_server"><%= sirData %></span></p>
+        <p>Ora client:<span id="data_client"></span></p>
+        <script>
+            function zero(nr){
+                if (nr<10) return "0"+nr;
+                return nr;
+            }
+
+            d=new Date()
+            document.getElementById("data_client").innerHTML=zero(d.getHours())+":"+zero(d.getMinutes())+":"+zero(d.getSeconds());
+
+            function actualizeazaElemData(id_div){
+                var data_div=document.getElementById(id_div);
+                if (data_div.innerHTML!="")
+                {
+                    var timp=data_div.innerHTML.split(":")
+                    var dt=new Date(2000,1,15, timp[0],timp[1], timp[2] );//nu conteaza data (am pus valori random pentru an, luna si zi) ci timpul
+                }
+                else
+                    var dt=new Date();
+                dt.setSeconds(dt.getSeconds()+1)
+                data_div.innerHTML=zero(dt.getHours())+":"+zero(dt.getMinutes())+":"+zero(dt.getSeconds());
+            }
+            function actualizeazaData(){
+                actualizeazaElemData("data_client");
+                actualizeazaElemData("data_server");
+            }
+            actualizeazaData()
+            setInterval(actualizeazaData,1000)
+        </script>
+    </section>
+<!--    <section id="anunturi">-->
+<!--        <h2>Anunțuri</h2> <p><time datetime="2022-01-05">5 ianuarie 2022</time> <strong>No more Covid!!!!</strong></p>-->
+
+<!--        <p><time datetime="2020-07-05">5 iulie 2020</time> Am adăugat o prăjitură noua în meniu</p>-->
+<!--        <p><time datetime="2020-09-15">15 septembrie 2020</time> Am adăugat un fursec nou în meniu</p>-->
+<!--        <p><time datetime="2020-12-20">20 decembrie 2020</time> Nu avem nimic de anunțat, dar ne era dor de voi.</p>-->
+<!--        <p><time datetime="2020-12-28">28 decembrie 2020</time> Am adăugat o prăjitură noua în meniu</p>-->
+<!--        <p><time datetime="2021-01-01">1 ianuarie 2021</time> Un an nou fericit!</p>-->
+<!--        <p><time datetime="2021-02-11">11 februarie 2021</time> Studiile au arătat că prăjiturile sunt cele mai sănătoase alimente.-->
+<!--            E adevărat că doar studiile noastre, dar astea sunt detalii. </p>-->
+<!--    </section>-->
+
+    <div id="container">
+        <section id="prezentare">
+            <h2> Salutare mateloti!</h2>
+            <p id="am_nev"> Sper sa gasiti barca preferata, spor la navigare, atat pe site cat si pe valuri!</p>
+            <p> Noi va oferim : </p>
+            <ol>
+                <li> Profesionalism</li>
+                <li> Calitate</li>
+                <li> Viteaza</li>
+            </ol>
+
+            <p>Catalogul nostru contine o gama variata de produse</p>
+            <ul>
+                <li> Barci
+                    <ul>
+                        <li>Barci gonflabile</li>
+                        <li>Barci din aluminiu</li>
+                        <li>Barci de pescuit cu vasle</li>
+                    </ul>
+                </li>
+                <li> Yahturi </li>
+                <li> Skijeturi </li>
+            </ul>
+        </section>
+
+        <section id="tabel">
+            <h2>Tabel</h2>
+            <div class="tabel_container">
+                <table class="tabel">
+                        <caption style="caption-side: bottom"> Cele mai populare produse! </caption>
+                        <thead>
+                            <tr class="row">
+                                <th>Produs</th>
+                                <th colspan="2">Descriere</th>
+                                <th>Pret</th>
+                                <th>Cautari</th>
+                                <th>Vanzari</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr class="row">
+                                <td>Barca</td>
+                                <td colspan="2">Barca gonflabila pentru pasionati</td>
+                                <td>3000 RON</td>
+                                <td>230</td>
+                                <td>99</td>
+                            </tr>
+
+                            <tr class="row">
+                                <td>Skijet</td>
+                                <td colspan="2">Pentru cei dornici de adrenalina</td>
+                                <td>5000 RON</td>
+                                <td>158</td>
+                                <td>57</td>
+                            </tr>
+
+                            <tr class="row">
+                                <td>Barca pescuit</td>
+                                <td colspan="2">Pentru cei dornici de relaxare</td>
+                                <td>10000 RON</td>
+                                <td>59</td>
+                                <td>23</td>
+                            </tr>
+
+                            <tr class="row">
+                                <td>Barca motor</td>
+                                <td colspan="2">Pentru cei dornici de relaxare si adrenalina</td>
+                                <td>20000 RON</td>
+                                <td>35</td>
+                                <td>13</td>
+                            </tr>
+                        </tbody>
+
+                        <tfoot>
+                            <tr class="row">
+                                <td>tfoot</td>
+                                <td colspan="2">tfoot</td>
+                                <td>tfoot</td>
+                                <td>tfoot</td>
+                                <td>tfoot</td>
+                            </tr>
+                        </tfoot>
+                </table>
+            </div>
+        </section>
+
+        <section id="evenimente">
+            <h2>Evenimente</h2>
+            <p>Praesent dapibus lobortis ante eu mollis. Curabitur laoreet elit ut purus condimentum varius. Pellentesque aliquam sapien nec orci blandit blandit. Vestibulum eget dapibus mi. Nullam vestibulum elementum nisl ut placerat. In ultricies consequat fringilla. Cras lacinia posuere nibh in efficitur. Nunc turpis felis, pulvinar vel rutrum in, molestie sit amet leo.</p>
+        </section>
+
+        <section id="anunturi">
+            <h2>Anunturi</h2>
+            <p>Quisque maximus tempus quam, sit amet pellentesque mauris dictum a. Integer in euismod lorem. Nam malesuada justo ut condimentum tristique. Fusce volutpat in nisl sit amet venenatis. Proin varius fringilla dolor in aliquet. Etiam interdum sagittis massa, id scelerisque ante facilisis sit amet. Duis pharetra id tortor nec rhoncus. Aliquam imperdiet urna urna, in venenatis purus tristique in. Nulla posuere urna vel purus auctor, vitae pretium enim dapibus.</p>
+        </section>
+
+        <section id="utilizatori">
+            <h2>Utilizatori online</h2>
+            <p>Nunc eros neque, ornare eu fermentum sed, efficitur eget dui. Vivamus porta arcu quis dui vulputate tempus. Phasellus gravida cursus dolor eget faucibus. Cras pulvinar, arcu nec dignissim lacinia, diam massa consequat ante, sit amet viverra ante nibh eget risus. Nunc volutpat velit eget urna bibendum, non viverra ligula molestie. Vestibulum eget velit ut ex egestas laoreet. Pellentesque vestibulum dui et fringilla faucibus. Morbi in eros quis eros vehicula tempus quis id est. Donec pulvinar, turpis ut ultricies maximus, sem felis bibendum nisl, id tempor dolor tellus eget libero. Ut sit amet posuere ante, nec iaculis orci.</p>
+        </section>
+
+        <section id="statistici">
+            <h2>Date utilizator si statistici</h2>
+            <p> Ip-ul tau este <%- locals.ip %> </p>
+            <p>Aliquam semper interdum maximus. Integer dignissim lacus placerat ante vestibulum, a egestas leo convallis. Etiam ut malesuada odio. Phasellus pulvinar mollis libero, eget molestie libero tristique ac. Pellentesque elit diam, lobortis ornare ex quis, ullamcorper facilisis massa. Morbi vitae quam tempor, vehicula lacus eget, egestas justo. Ut nibh ante, accumsan vel urna vel, varius auctor nibh. Mauris ac dictum nisl. Vestibulum consectetur sagittis accumsan. Donec at elementum erat. Nulla at justo quam. Vivamus condimentum nulla nunc, at vestibulum sem aliquet eget.</p>
+        </section>
+
+        <section id="detalii">
+            <h2>Detalii server</h2>
+            <p>Ut mattis massa massa, in consequat est maximus et. Nunc malesuada sit amet quam nec pulvinar. Integer eu efficitur tortor, vel tempor quam. Curabitur non sapien non risus consectetur suscipit at et urna. Nunc tincidunt, justo sit amet ornare porta, felis diam scelerisque eros, sed euismod neque magna quis odio. Vestibulum tortor diam, lobortis et elementum et, porta sed metus. Sed posuere risus nec sem ullamcorper semper. Aliquam turpis nisi, rutrum sed arcu sed, dapibus ullamcorper mi. Duis eget rhoncus dolor. Pellentesque elit purus, molestie vitae euismod ut, euismod quis lectus. Sed eget faucibus tellus. Aenean iaculis elit eget lacus maximus imperdiet ac mattis enim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;</p>
+        </section>
+
+        <section id="diverse">
+            <h2>Diverse</h2>
+            <p>Fusce euismod turpis ac risus porttitor consequat. Nulla interdum, mauris sit amet vestibulum dignissim, leo elit molestie elit, quis pulvinar quam erat et felis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc vitae placerat velit. Nullam blandit ac felis ut sollicitudin. Nunc rutrum pretium arcu eu pretium. Quisque euismod dignissim tortor, vitae sagittis neque hendrerit nec. Phasellus fringilla arcu justo, in vulputate turpis facilisis sed. Suspendisse vel velit eget nulla finibus egestas nec eu massa.</p>
+        </section>
+
+    </div>
+
+    <figure class="imagine">
+        <h2> Recomandarea lunii </h2>
+        <picture>
+            <source srcset="/resurse/imagini/barci/barca_cu_motor/motorboat_300.jpeg" media="(max-width:500px)"/>
+            <source srcset="/resurse/imagini/barci/barca_cu_motor/motorboat_480.jpg" media="(max-width:600px)"/>
+            <source srcset="/resurse/imagini/barci/barca_cu_motor/motorboat_640.jpeg" media="(max-width:700px)"/>
+            <source srcset="/resurse/imagini/barci/barca_cu_motor/motorboat_820.jpeg" media="(max-width:900px)"/>
+            <source srcset="/resurse/imagini/barci/barca_cu_motor/motorboat_960.jpg" media="(max-width:1000px)"/>
+            <img src="/resurse/imagini/barci/barca_cu_motor/motorboat_960.jpg" alt="text"/>
+        </picture>
+        <figcaption> Dragi amatori de <b>naviagare</b>, cu venirea verii va recomandam noul model de <b>barca cu motor</b>, Yamaha 212XD , o barca usor manvrabila perfecta pentru o gama variata de activitati precum pescuitul, <i>wakeboarding</i>, ski nautic, <i>tube riding</i>. De asemenea, timp de o luna beneficiezi de <strong>oferta promotionala</strong>, de la <s>$74,599</s> la <ins>$64,599</ins>!!.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dui nisl, bibendum nec nisi vitae, vestibulum fringilla felis. Nulla tristique ullamcorper diam a tempus. Donec eget risus vitae sapien rhoncus porttitor in in enim. Morbi sed tincidunt nunc. Cras ac nulla nibh. Vestibulum pharetra facilisis vestibulum. Nam eget mauris at turpis lacinia porta. Nulla facilisi. Vestibulum ornare neque quam, vel mollis magna condimentum ac. Integer posuere vehicula nibh eu hendrerit.
+            Sed iaculis finibus dapibus. Donec lectus ipsum, fermentum tempus vehicula sit amet, ullamcorper ac nulla. Duis lacinia commodo velit, in sagittis leo fermentum in. Curabitur tortor dui, fermentum vulputate consectetur sit amet, suscipit quis orci. Nullam at iaculis ex. Nulla vitae diam tellus. Mauris facilisis bibendum iaculis. Fusce faucibus euismod felis nec tempus. Mauris ultrices est dictum mattis rhoncus. Donec tincidunt ultricies est, in fermentum nisl efficitur non. Vivamus luctus, nisi ut tempus faucibus,
+            felis leo posuere est, pulvinar lobortis neque mauris et nunc. Donec id viverra nisl, a efficitur nisi. Fusce vehicula faucibus purus,
+            sed pellentesque libero ultrices rhoncus. Mauris fermentum mauris ac tincidunt cursus.
+        </figcaption>
+    </figure>
+
+    <section>
+        <h2> Ce sa fac daca sunt incepator in ceea ce priveste ambarcatiunile nautice? </h2>
+        <p> Va invitam sa consultati acest <a href="https://alesbine.ro/ales-bine-ghid-pentru-a-alege-cea-mai-buna-barca-de-agrement/" target="_blank">ghid</a> pentru a va asigura ca alegeti modelul de barca cel mai potrivit pentru nevoile dumneavoastra.</p>
+        <p> De asemena, va punem la dispozitie mai multe resurse pentru a va asigura ca incepeti cu dreptul in arta navigarii : <a href="/resurse/pdf/motor.pdf" download target="_blank"> Safe boating guide</a> si <a href="/resurse/pdf/sailing.pdf" download target="_blank">Sailing made simple</a> </p>
+    </section>
+
+    <section class="videoclip___">
+        <h2>Resurse video suplimentare</h2>
+        <div class="iframe">
+            <div class="linkuri">
+                <a href="https://www.youtube.com/embed/ZGDHuz_3XS0" target="iframe_barca_video">  Barca aluminiu </a>
+                <a href="https://www.youtube.com/embed/e1RNowe9oPw" target="iframe_barca_video"> Barci gonflabile </a>
+                <a href="https://www.youtube.com/embed/Qthr9KkVcRU" target="iframe_barca_video"> Yacht </a>
+            </div>
+            <iframe name = "iframe_barca_video" width="500" height="400" src="https://www.youtube.com/embed/ZGDHuz_3XS0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+    <section class="videoclip">
+        <video class="videoclip_muzica" width="50%" controls preload="metadata" poster="/resurse/imagini/pirat.jpg">
+            <source src="/resurse/videos/video_mp4.mp4">
+            <source src="/resurse/videos/video_mov.mov">
+            <track src="/resurse/subtritari/engleza.vtt" kind="subtitles" srclang="en" label="EN">
+            <track src="/resurse/subtritari/romana.vtt" kind="subtitles" srclang="ro" label="RO" default>
+        </video>
+    </section>
+
+    <section class="galerie_imagini">
+        <% for (let img of locals.imagini) {%>
+                <figure>
+                    <picture>
+                        <source srcset="<%-img.mic%>" media="(max-width:800px)" />
+                        <source srcset="<%-img.mediu%>" media="(max-width:1200px)" />
+                        <img src="<%-img.mare%>" alt="Text alternativ">
+                    </picture>
+                    <figcaption> <%-img.descriere%></figcaption>
+                </figure>
+            <%} %>
+
+    </section>
+
+    <section id = "sectiune-galerie-animata">
+        <div id="galerie-animata" class="galerie-a">
+            <% for (let imag of locals.imganimata) {%>
+                <figure>
+                    <picture>
+                        <source srcset="/<%-imag.mic%>" media="(max-width:700px)">
+                        <img src="/<%-imag.mare%>" alt="sadasda">
+                    </picture>
+                    <figcaption><%-imag.descriere%></figcaption>
+                </figure>
+            <%}%>
+        </div>
+    </section>
+
+    <section id = "pareri">
+        <h2> Parerile cumparatorilor </h2>
+        <article>
+            <h3> Ion Ionescu </h3>
+            <p> <time datetime="2022-02-18 12:45"> 2022-02-18 12:45</time> </p>
+            <p> Recomand cu caldura, angajatii sunt mereu disponibili sa te ajute. </p>
+        </article>
+        <article>
+            <h3> Geroge Georgescu</h3>
+            <p> <time datetime="2022-01-15 17:07"> 2022-01-15 17:07 </time> </p>
+            <p> Calitatea produselor este neintrecuta, necesara amatorilor de barci de viteza! </p>
+        </article>
+        <article>
+            <h3> Pop Popescu </h3>
+            <p> <time datetime="2022-01-03 09:34"> 2022-01-03 09:34 </time> </p>
+            <p> Remarcabil, recomand celor pasionati de barci cu motor! </p>
+        </article>
+    </section>
+
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+
+    <section id="intrebari">
+        <h2>Intrebari frecvente</h2>
+        <details>
+            <summary>Cum ma inregistrez?</summary>
+            <p>In partea de sus a site-ului apasati pe butonul Inregistrare.</p>
+        </details>
+        <details>
+            <summary>Cum comand?</summary>
+            <p>Adaugati produsele pe care le doriti in cos si dupa aceea urmati pasii indicati.</p>
+        </details>
+        <details>
+            <summary>Cat dureaza procesarea comenzii?</summary>
+            <p>In functie de perioada poate dura de la 2 zile la 7 zile lucratoare.</p>
+        </details>
+        <details>
+            <summary>Cum platesc?</summary>
+            <p> Plata se efectueaza prin card bancar.</p>
+        </details>
+    </section>
+
+</main>
+<%- include("../fragmente/footer.ejs");%>
+<!--<div class="aici_banner"> <p id="banner"> Acesta este un proiect scolar. Acceptati cookie-urile de pe site? <button id="ok_ccokies"> OK </button></p></div>-->
+</body>
+</html>

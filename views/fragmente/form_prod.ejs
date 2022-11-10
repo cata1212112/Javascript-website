@@ -1,0 +1,79 @@
+<form id="form_prod<%=locals.id%>"  method="post" class="date"  action="/update_prod"  enctype="multipart/form-data">
+    <section class="box">
+
+    <p>
+        <input type="text" value="" name="prod_id" id="prod_id<%=locals.id%>" style="display: none">
+    </p>
+    <p>
+        <img src="" alt="nu are poza" id="imagine<%=locals.id%>">
+    </p>
+    <p>
+        <label>
+            Nume: <input type="text" name="prod_name" id="prod_name<%=locals.id%>" value="" required>
+        </label>
+    </p>
+    <p>
+        <label for="marime">Marime: </label>
+        <select name="marime" id="marime_Sel<%=locals.id%>" required>
+            <option value="mica">mica</option>
+            <option value="medie">medie</option>
+            <option value="mare">mare</option>
+            <option value="imensa">imensa</option>
+        </select>
+    </p>
+    <p>
+        <label>
+            Culori: <input type="text" name="culori" id="culori<%=locals.id%>" value="" required>
+        </label>
+    </p>
+    <p>
+        <label>
+            Viteza: <input id="viteza<%=locals.id%>" type="text" required name="viteza" value="">
+        </label>
+    </p>
+    <p>
+        <label for="vasle">Vasle: </label>
+        <select name="vasle" id="vasle<%=locals.id%>" required>
+            <option value="false">nu</option>
+            <option value="true">da</option>
+        </select>
+    </p>
+    <p>
+        <label>
+            Descriere: <textarea id="descriere<%=locals.id%>" name="descriere"></textarea>
+        </label>
+    </p>
+    <p>
+        <label>
+            Pret: <input id="pret<%=locals.id%>" type="text" required name="pret" value="">
+        </label>
+    </p>
+        <p>
+            <label>
+                Producator: <input id="producator<%=locals.id%>" type="text" required name="producator" value="">
+            </label>
+        </p>
+    <p>
+
+        <label for="categorie">Categorie: </label>
+        <select name="categorie" id="categorie<%=locals.id%>" required>
+            <option value="barca motor">barca motor</option>
+            <option value="barca pescuit">barca pescuit</option>
+            <option value="ski jet">ski jet</option>
+            <option value="yacht">yacht</option>
+            <option value="caiac">caiac</option>
+            <option value="barca vela">barca vela</option>
+            <option value="barca gonflabila">barca gonflabila</option>
+        </select>
+
+    </p>
+    <p>
+        <label>
+            Poza: <input type="file" id="poza<%=locals.id%>" required name="poza">
+        </label>
+    </p>
+    <p>
+        <input type="submit" value="Trimite" id="trimitere<%=locals.id%>">
+    </p>
+    </section>
+</form>

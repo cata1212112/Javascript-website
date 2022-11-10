@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Monda&display=swap');
+
+body.light {
+    --culoare-unu:#0D75FA;
+    --culoare-doi:#0B9FDE;
+    --culoare-principala:#00EEF5;
+    --culoare-patru:#0BDEAA;
+    --culoare-cinci: #b1fccc;
+
+    --inaltime-buton:50px;
+
+    font-family: 'Monda', sans-serif;
+    font-size: 17px;
+}
+
+body.dark {
+    --culoare-unu: #1d4064;
+    --culoare-doi: #0a547c;
+    --culoare-principala: #077477;
+    --culoare-patru: #02795d;
+    --culoare-cinci: #00a238;
+
+    --inaltime-buton:50px;
+
+    font-family: 'Monda', sans-serif;
+    font-size: 17px;
+}
+
+body.party {
+    --culoare-unu: #7f99b4;
+    --culoare-doi: #29343a;
+    --culoare-principala: #b70d0d;
+    --culoare-patru: #79c6ff;
+    --culoare-cinci: #f10101;
+
+    --inaltime-buton:50px;
+
+    font-family: 'Monda', sans-serif;
+    font-size: 17px;
+}
+
+header h1 {
+    text-align: center;
+}
+
+body {
+    /*background-image: radial-gradient(#0D75FA, #00EEF5);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+    background-color: var(--culoare-principala);
+}
+
+#emblema {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#container {
+    display: grid;
+    grid-template-areas: "p1 p1 p1"
+                         "p3 p2 p4"
+                         "p5 p2 p4"
+                         "p5 p6 p7"
+                         "p8 p8 p8";
+
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-gap: 1em;
+}
+
+@media (max-width: 1000px) {
+    html  {
+        font-size: 0.9em;
+    }
+    #container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "p1 p1"
+                             "p3 p2"
+                             "p4 p2"
+                             "p4 p5"
+                             "p6 p5"
+                             "p7 p8";
+        grid-gap: 1em;
+    }
+}
+
+@media (max-width: 550px) {
+    html  {
+        font-size: 0.8em;
+    }
+    #container {
+        grid-template-areas: "p1"
+                             "p2"
+                             "p3"
+                             "p4"
+                             "p5"
+                             "p6"
+                             "p7"
+                             "p8";
+        grid-gap: 1em;
+        grid-template-columns: 1fr;
+    }
+}
+
+#prezentare {
+    grid-area: p1;
+}
+
+#tabel {
+    grid-area: p2;
+}
+
+#evenimente {
+    grid-area: p3;
+}
+
+#anunturi {
+    grid-area: p4;
+}
+
+#utilizatori {
+    grid-area: p5;
+}
+
+#statistici {
+    grid-area: p6;
+}
+
+#detalii {
+    grid-area: p7;
+}
+
+#diverse {
+    grid-area: p8;
+}
+
+#container section{
+    border:1px solid black;
+    padding: 10px;
+}

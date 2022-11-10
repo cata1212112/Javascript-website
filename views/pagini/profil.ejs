@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ro">
+	<head>
+		<title>Profil</title>
+		<%- include("../fragmente/head") %>
+        
+<!--		<link rel="stylesheet" type="text/css" href="/resurse/css/contact.css" />-->
+		<script>
+
+
+			window.addEventListener("DOMContentLoaded", function(){
+				document.getElementById("inp-username").value="<%= locals.utilizator.username %>";
+				document.getElementById("inp-username").readOnly=true;
+				document.getElementById("inp-nume").value="<%= locals.utilizator.nume %>";
+				document.getElementById("inp-prenume").value="<%= locals.utilizator.prenume %>";
+				document.getElementById("inp-email").value="<%= locals.utilizator.email %>";
+				document.getElementById("p-reintrod").remove();
+				var optiuni=document.getElementById("sel-culoare").options
+				for (let opt of optiuni)
+					if (opt.value=="<%= locals.utilizator.culoare_chat %>")
+						opt.selected=true;
+
+
+				var optiuni2=document.getElementById("ocupatie_select").options
+				for (let opt of optiuni2)
+					if (opt.value=="<%= locals.utilizator.ocupatie %>")
+						opt.selected=true;
+			});
+		</script>
+	</head>
+	<body class="container">
+		<header>
+			<%- include("../fragmente/header") %>
+		</header>
+		<main>
+		
+			<section>
+				<h2>Profil</h2>
+				<p><%= locals.text %></p>
+			</section>
+			<%- include("../fragmente/formular",{action:"/profil"}) %>
+
+			<form id="resetare_parola" method="post" action="/resetare_parola">
+				<input type="text" name="id" value="<%-locals.utilizator.id%>" style="display: none">
+				<input type="text" name="email" value="<%-locals.utilizator.email%>" style="display: none">
+				<p>Noua parola: <input type="text" name="noua_parola" value=""></p>
+				<input type="submit" value="Reseteaza Parola">
+			</form>
+
+			<form id="sterge_cont" method="post" action="/sterge_cont">
+				<input type="text" name="id" value="<%-locals.utilizator.id%>" style="display: none">
+				<input type="text" name="email" value="<%-locals.utilizator.email%>" style="display: none">
+				<p>Parola: <input type="password" name="parola" value=""></p>
+				<input type="submit" value="Sterge Contul">
+			</form>
+		</main>
+		
+		<%- include("../fragmente/footer") %>
+		
+	</body>
+</html>

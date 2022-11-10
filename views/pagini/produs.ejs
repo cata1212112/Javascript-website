@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lang="ro">
+<head>
+    <title> BarcaOnline </title>
+    <meta name="keywords" content="magazin, barca, barci, navigare, barca cu motor, barca gonflabila, yachturi, barci de viteza, ambarcatiuni nautice, skijeturi, barci cu motor, barci gonflabile">
+    <meta name="description" content="Magazinul online numarul 1 pentru achizionare de barci. Aici oferim barci de viteza, barci cu motor, barci gonflabile, yachturi si skijeturi. Spor la navigare!" >
+    <%- include("../fragmente/head.ejs");%>
+
+    <link rel="stylesheet" href="/resurse/css/produse.css" type="text/css">
+    <script src="/resurse/js/produs.js"></script>
+</head>
+
+<body>
+
+<%- include("../fragmente/header.ejs");%>
+
+<main>
+    <section id="produse">
+        <h2>Produse</h2>
+        <div class="grid_produse">
+            <article class="produs" id="produs_<%-prod.id%>">
+                <h3 class="nume"> Nume: <a href="/produs/<%-prod.id%>"> <span class = "val-nume"><%-prod.nume%></span></a></h3>
+
+                <div class="prod_info">
+
+                    <figure>
+                        <a href="/produs/<%-prod.id%>"> <img src="<%-prod.imagine%>"></a>
+                        <figcaption>
+                            <p class="pret"> Pret: <span class="val_pret"><%-prod.pret%></span> $</p>
+                            <p class="categorie">Categorie: <span class="val_categorie"><%-prod.categorie%></span></p>
+                        </figcaption>
+                    </figure>
+
+                    <div>
+                        <details>
+                            <summary>Specificatii</summary>
+                            <ul>
+                                <li><p class="marime"> <b>Marime</b>: <span class="marime_val"> <%-prod.tip_produs%></span> </p></li>
+                                <li><p class="culori"> <b>Culori</b>: <span class="culori_val"> <%-prod.culori%></span> </p></li>
+                                <li><p class="viteza"> <b>Viteza</b>: <span class="viteza_val"> <%-prod.viteza_maxima%> MPH</span></p></li>
+                                <li><p class="vasle"> <b>Suporta vasle</b>: <span class="vasle_val"> <%-prod.viteza_maxima%> </span></p></li>
+                                <li><time class="time" datetime="<%-prod.data_adaugare%>"> <b>Data adaugare</b>: <span class="time_val"> <%-prod.data_adaugare%> </span></time></li>
+                            </ul>
+                        </details>
+                        <p class="descriere"><span class="descriere_val"> <%-prod.descriere%> </span></p>
+                    </div>
+                </div>
+                <label class="selecteaza_cos">
+                    Selecteaza: <br/>
+                    <input type="checkbox" class="select_cos" value="<%-prod.id%>" autocomplete="off">
+                </label>
+            </article>
+        </div>
+    </section>
+</main>
+
+<%- include("../fragmente/footer.ejs");%>
+</body>
+</html>

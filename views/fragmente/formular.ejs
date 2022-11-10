@@ -1,0 +1,57 @@
+<form id="form_inreg"  method="post" class="date"  action="<%= locals.action %>"  enctype="multipart/form-data">
+    <p>
+        <label>
+            Username: <input type="text" name="username" id="inp-username" value="" required pattern="^[A-Za-z_]+[0-9]*+$">
+        </label>
+    </p>
+    <p>
+        <label>
+            Nume: <input type="text" name="nume" id="inp-nume"  value="" required pattern="[A-Za-z -]+">
+        </label>
+    </p>
+    <p>
+        <label>
+            Prenume: <input type="text" name="prenume" id="inp-prenume" value="" required pattern="[A-Za-z -]+">
+        </label>
+    </p>
+    <p>
+        <label>
+            Parola: <input id="parl" type="password" required  name="parola" value="">
+        </label>
+    </p>
+    <p id="p-reintrod">
+        <label >
+            Reintroduceti parola: <input id="rparl" required type="password" name="rparola" value="">
+        </label>
+    </p>
+    <p>
+        <label>
+            Email: <input type="text" name="email" id="inp-email" required value="" size="50" pattern="[a-z0-9._%+-]+@[a-z]+.[a-z]{1,3}+$">
+        </label>
+    </p>
+    <p>
+        <label>
+            Culoare text chat: <select name="culoare_chat" id="sel-culoare"><option value="red" selected>rosu</option><option value="green">verde</option><option value="blue">albastru</option></select>
+        </label>
+    </p>
+    <p>
+        <label for="ocupatie">Alege ocupatia: </label>
+        <select name="ocupatie" id="ocupatie_select">
+            <option value="nu doresc sa spun" selected>nu doresc sa spun</option>
+            <option value="afacerist">afacerist</option>
+            <option value="programator">programator</option>
+            <option value="profesor">profesor</option>
+            <option value="electrician">electrician</option>
+            <option value="contabil">contabil</option>
+        </select>
+
+    </p>
+    <p>
+        <label>
+            Poza: <input type="file" name="poza">
+        </label>			
+    </p>
+    <p>		
+        <input type="submit" value="Trimite">
+    </p>
+</form>
